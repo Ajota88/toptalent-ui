@@ -1,5 +1,7 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 import Navbar from "./components/navbar/Navbar";
 import MobileNavbar from "./components/mobileNavbar/MobileNavbar";
 import Footer from "./components/footer/Footer";
@@ -22,11 +24,13 @@ const App = () => {
 
   const Layout = () => {
     return (
-      <div className="layout">
-        {isMobile ? <MobileNavbar /> : <Navbar />}
-        <Outlet />
-        <Footer />
-      </div>
+      <Provider store={store}>
+        <div className="layout">
+          {isMobile ? <MobileNavbar /> : <Navbar />}
+          <Outlet />
+          <Footer />
+        </div>
+      </Provider>
     );
   };
 
@@ -45,7 +49,7 @@ const App = () => {
           element: <Gigs />,
         },
         {
-          path: "/gig/:id",
+          path: "/gigs/:id",
           element: <GigPage />,
         },
         {
