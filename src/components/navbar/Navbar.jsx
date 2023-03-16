@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AdvancedImage } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
@@ -10,6 +11,7 @@ import "./Navbar.scss";
 
 const Navbar = () => {
   const [active, setActive] = useState(false);
+  const user = useSelector((state) => state.user);
 
   const [open, setOpen] = useState(false);
 
@@ -23,8 +25,6 @@ const Navbar = () => {
     img: "",
   };
  */
-
-  const user = false;
 
   //Detecting scroll
   const isActive = () => {
