@@ -1,0 +1,49 @@
+.explore {
+  padding-block: 5rem;
+  display: flex;
+  justify-content: center;
+  .container {
+    width: min(90vw, 75rem);
+  }
+
+  .items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  svg {
+    font-size: var(--size-600);
+  }
+
+  @media (min-width: 30rem) {
+    .items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4rem;
+    }
+    svg {
+      font-size: var(--size-600);
+    }
+
+    h1 {
+      font-size: var(--size-600);
+      margin-bottom: 3rem;
+    }
+
+    span {
+      font-size: var(--size-500);
+    }
+  }
+}
