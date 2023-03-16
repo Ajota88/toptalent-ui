@@ -1,0 +1,140 @@
+.hero {
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  background-color: var(--clr-neutral-800);
+  color: var(--clr-white);
+
+  .container {
+    width: min(90vw, 75rem);
+    display: flex;
+    align-items: center;
+    gap: 100px;
+  }
+
+  .left {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    span {
+      font-weight: 300;
+      font-style: italic;
+    }
+  }
+
+  .search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 5px;
+    color: black;
+
+    width: 90%;
+
+    button {
+      display: block;
+      width: 100%;
+      border: none;
+      background-color: var(--clr-primary-300);
+
+      padding: 0.5rem 1rem;
+
+      color: white;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+    background-color: var(--clr-white);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 1rem;
+
+    input {
+      width: 100%;
+      border: none;
+      outline: none;
+    }
+  }
+
+  .popular {
+    display: none;
+  }
+
+  .right {
+    display: none;
+  }
+}
+
+@media (min-width: 50rem) {
+  .hero {
+    background-color: var(--clr-primary-400);
+
+    .left {
+      h1 {
+        font-size: 48px;
+      }
+    }
+
+    .search {
+      align-items: stretch;
+      height: 3rem;
+
+      flex-direction: row;
+      gap: 0;
+
+      button {
+        flex: 0 1 6rem;
+        padding: 0.5rem;
+        background-color: var(--clr-accent-400);
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+
+    .search-input {
+      flex: 3;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .popular {
+      display: flex;
+      width: 90%;
+      justify-content: space-between;
+      align-items: center;
+
+      button {
+        color: white;
+        background-color: transparent;
+        border: 1px solid white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media (min-width: 68rem) {
+  .hero {
+    .right {
+      display: block;
+      width: 50rem;
+      transform: translateY(50px);
+    }
+  }
+}
