@@ -8,7 +8,7 @@ export const gigsApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
       providesTags: (result, error, arg) => [
-        { type: "Gig", id: "  GIGLIST" },
+        { type: "Gig", id: "GIG_LIST" },
 
         ...result.map((gig) => ({ type: "Gig", id: gig.id })),
       ],

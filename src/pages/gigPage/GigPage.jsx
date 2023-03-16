@@ -1,6 +1,11 @@
 import { useGetGigByIdQuery } from "../../features/gigs/gigsSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faClock, faRecycle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheck,
+  faClock,
+  faRecycle,
+  faStar,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from "react-router-dom";
 import { AdvancedImage } from "@cloudinary/react";
 import { Cloudinary, CloudConfig, CloudinaryImage } from "@cloudinary/url-gen";
@@ -44,7 +49,7 @@ const Gig = () => {
           <div className="left">
             <span className="breadcrumbs">Fiverr {">"} Graphics & Designs</span>
             <h1>{gig.title}</h1>
-            <div className="user">
+            <div className="user-main">
               {!gig?.img ? (
                 <img src={avatarPlaceholder} alt="" />
               ) : (
@@ -71,7 +76,7 @@ const Gig = () => {
             <p>{gig.desc}</p>
             <div className="seller">
               <h2>About the Seller</h2>
-              <div className="user">
+              <div className="user-secondary">
                 {!gig?.img ? (
                   <img src={avatarPlaceholder} alt="" />
                 ) : (
