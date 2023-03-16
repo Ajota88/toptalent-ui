@@ -1,5 +1,5 @@
 import Hero from "../../components/hero/Hero";
-import Slide from "../../components/slide/Slide";
+import CategorySlider from "../../components/categorySlider/CategorySlider";
 import Services from "../../components/services/Services";
 import ExploreCategories from "../../components/exploreCategories/ExploreCategories";
 import "./Home.scss";
@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <div className="home">
       <Hero />
-      <Slide />
+      <CategorySlider />
       <Services />
       <ExploreCategories />
     </div>

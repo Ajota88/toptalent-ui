@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import "./Hero.scss";
-import featuredImg from "../../assets/featured-img.png";
+import heroImg from "../../assets/hero-img.png";
 
-const Featured = () => {
+const Hero = () => {
   const [input, setInput] = useState("");
   const navigate = useNavigate();
 
@@ -40,10 +40,10 @@ const Featured = () => {
           </div>
         </div>
         <div className="right">
-          <img src={featuredImg} alt="featured image" />
+          <img src={heroImg} alt="featured image" />
         </div>
       </div>
     </div>
   );
 };
-export default Featured;
+export default Hero;
