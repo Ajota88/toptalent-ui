@@ -24,7 +24,7 @@ const GigCard = ({ item }) => {
 
   return (
     <div className="gig-card">
-      <Link to={`/gig/${item.id}`}>
+      <Link to={`/gigs/${item.id}`}>
         {!item?.cover ? (
           <img src={coverPlaceholder} alt="" />
         ) : (
