@@ -1,4 +1,5 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { useGetUserLoggedQuery } from "./features/auth/authSlice";
 import { useMediaQuery } from "react-responsive";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
@@ -21,16 +22,24 @@ import {
 
 const App = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 700px)" });
+  const {
+    data: user,
+    isError,
+    isLoading,
+    isSuccess,
+  } = useGetUserLoggedQuery("", { refetchOnMountOrArgChange: true });
 
   const Layout = () => {
+    if (isLoading) {
+      return <h1>Loading...</h1>;
+    }
+
     return (
-      <Provider store={store}>
-        <div className="layout">
-          {isMobile ? <MobileNavbar /> : <Navbar />}
-          <Outlet />
-          <Footer />
-        </div>
-      </Provider>
+      <div className="layout">
+        {isMobile ? <MobileNavbar /> : <Navbar />}
+        <Outlet />
+        <Footer />
+      </div>
     );
   };
 

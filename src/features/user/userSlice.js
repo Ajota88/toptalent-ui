@@ -13,6 +13,18 @@ const userSlice = createSlice({
         return (state = { ...payload });
       }
     );
+    builder.addMatcher(
+      authApiSlice.endpoints.getUserLogged.matchFulfilled,
+      (state, { payload }) => {
+        return (state = { ...payload });
+      }
+    );
+    builder.addMatcher(
+      authApiSlice.endpoints.logout.matchFulfilled,
+      (state) => {
+        return (state = null);
+      }
+    );
   },
 });
 

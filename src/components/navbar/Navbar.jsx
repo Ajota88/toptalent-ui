@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useLogoutMutation } from "../../features/auth/authSlice";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AdvancedImage } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
@@ -12,10 +13,18 @@ import "./Navbar.scss";
 const Navbar = () => {
   const [active, setActive] = useState(false);
   const user = useSelector((state) => state.user);
+  const [logout, result] = useLogoutMutation();
 
   const [open, setOpen] = useState(false);
 
   const { pathname } = useLocation();
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   //mock user
   /* const user = {
@@ -99,7 +108,7 @@ const Navbar = () => {
                   <Link to="/messages">
                     <span>Messages</span>
                   </Link>
-                  <span>Log out</span>
+                  <span onClick={handleLogout}>Log out</span>
                 </div>
               )}
             </div>
