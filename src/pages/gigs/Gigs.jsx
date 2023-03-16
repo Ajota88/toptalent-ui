@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updatePriceFilter } from "../../features/filters/filtersSlice";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLocation } from "react-router-dom";
@@ -10,8 +12,17 @@ import "./Gigs.scss";
 const Gigs = () => {
   const [open, setOpen] = useState(false);
   const [sort, setSort] = useState("sales");
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState("");
+  const filters = useSelector((state) => state.filters);
+
+  const dispatch = useDispatch();
 
   const { search } = useLocation();
+
+  const applyPriceFilter = () => {
+    dispatch(updatePriceFilter({ minPrice, maxPrice }));
+  };
 
   const {
     data: gigs,
@@ -19,7 +30,10 @@ const Gigs = () => {
     isSuccess,
     isError,
     error,
-  } = useGetGigsQuery();
+  } = useGetGigsQuery({
+    minPrice: filters?.minPrice,
+    maxPrice: filters?.maxPrice,
+  });
 
   const reSort = (type) => {
     setSort(type);
@@ -37,9 +51,19 @@ const Gigs = () => {
         <div className="menu">
           <div className="left">
             <span>Budget</span>
-            <input type="text" placeholder="min price" />
-            <input type="text" placeholder="max price" />
-            <button>Apply</button>
+            <input
+              type="number"
+              value={minPrice}
+              onChange={(e) => setMinPrice(e.target.value)}
+              placeholder="min price"
+            />
+            <input
+              type="number"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
+              placeholder="max price"
+            />
+            <button onClick={applyPriceFilter}>Apply</button>
           </div>
           <div className="right">
             <span className="sort-by">Sort By</span>
