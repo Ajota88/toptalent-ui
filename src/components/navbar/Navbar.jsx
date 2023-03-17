@@ -76,9 +76,11 @@ const Navbar = () => {
           <Link to="/gigs">
             <span>Explore</span>
           </Link>
-          <Link to="/login">
-            <span>Sign in</span>
-          </Link>
+          {!user ? (
+            <Link to="/login">
+              <span>Sign in</span>
+            </Link>
+          ) : null}
           {!user?.isSeller && <span>Become a Seller</span>}
           {user ? (
             <div className="user" onClick={() => setOpen((prev) => !prev)}>
