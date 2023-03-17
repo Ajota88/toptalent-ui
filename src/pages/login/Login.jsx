@@ -34,8 +34,6 @@ function Login() {
     }
   };
 
-  console.log("soy info ", userInfo);
-
   return (
     <div className="login">
       <form onSubmit={handleSubmit(onSubmit)}>
