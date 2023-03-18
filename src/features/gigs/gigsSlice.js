@@ -37,8 +37,20 @@ export const gigsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [{ type: "Gig", id: "GIG_LIST" }],
     }),
+    getUserGigs: builder.query({
+      query: () => ({
+        url: "/gigs/user",
+      }),
+      providesTags: (result, error, arg) => [
+        { type: "Gig", id: "USER_GIGS_LIST" },
+      ],
+    }),
   }),
 });
 
-export const { useGetGigsQuery, useGetGigByIdQuery, useAddGigMutation } =
-  gigsApiSlice;
+export const {
+  useGetGigsQuery,
+  useGetGigByIdQuery,
+  useAddGigMutation,
+  useGetUserGigsQuery,
+} = gigsApiSlice;

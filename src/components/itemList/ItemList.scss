@@ -4,6 +4,11 @@ tbody {
       font-size: 12px;
     }
 
+    span {
+      display: flex;
+      gap: 1rem;
+    }
+
     .image {
       width: 50px;
       height: 25px;
