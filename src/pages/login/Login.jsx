@@ -30,7 +30,7 @@ function Login() {
       await login(data).unwrap();
       navigate("/");
     } catch (error) {
-      setError(error.response.data);
+      setError(error.data);
     }
   };
 

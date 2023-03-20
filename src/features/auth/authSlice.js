@@ -14,6 +14,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
         url: "/auth/user",
         method: "GET",
       }),
+      providesTags: (result, error, arg) => [{ type: "User", id: "USER_INFO" }],
     }),
     logout: builder.mutation({
       query: () => ({
@@ -28,6 +29,14 @@ export const authApiSlice = apiSlice.injectEndpoints({
         body: newUser,
       }),
     }),
+    updateUser: builder.mutation({
+      query: (userInfo) => ({
+        url: "/users",
+        method: "PUT",
+        body: userInfo,
+      }),
+      invalidatesTags: [{ type: "User", id: "USER_INFO" }],
+    }),
   }),
 });
 
@@ -36,4 +45,5 @@ export const {
   useGetUserLoggedQuery,
   useLogoutMutation,
   useRegisterUserMutation,
+  useUpdateUserMutation,
 } = authApiSlice;

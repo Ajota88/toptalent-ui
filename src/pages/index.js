@@ -9,6 +9,7 @@ import Orders from "./orders/Orders";
 import Payment from "./payment/Payment";
 import Register from "./register/Register";
 import Success from "./success/Success";
+import ProfilePage from "./profilePage/ProfilePage";
 
 export {
   AddGig,
@@ -22,4 +23,5 @@ export {
   Payment,
   Register,
   Success,
+  ProfilePage,
 };

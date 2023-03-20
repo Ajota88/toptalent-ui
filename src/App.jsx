@@ -18,6 +18,7 @@ import {
   Payment,
   Register,
   Success,
+  ProfilePage,
 } from "./pages";
 
 const App = () => {
@@ -89,6 +90,10 @@ const App = () => {
         {
           path: "/success",
           element: <Success />,
+        },
+        {
+          path: "/myprofile",
+          element: <ProfilePage />,
         },
       ],
     },

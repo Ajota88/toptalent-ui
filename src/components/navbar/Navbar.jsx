@@ -81,7 +81,11 @@ const Navbar = () => {
               <span>Sign in</span>
             </Link>
           ) : null}
-          {!user?.isSeller && <span>Become a Seller</span>}
+          {user && !user?.isSeller && (
+            <Link to="/myprofile">
+              <span>Become a Seller</span>
+            </Link>
+          )}
           {user ? (
             <div className="user" onClick={() => setOpen((prev) => !prev)}>
               <div className="info">
@@ -104,6 +108,9 @@ const Navbar = () => {
                       </Link>
                     </>
                   )}
+                  <Link to="/myprofile">
+                    <span>My Profile</span>
+                  </Link>
                   <Link to="/orders">
                     <span>Orders</span>
                   </Link>
