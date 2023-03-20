@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 import { FilePond, registerPlugin } from "react-filepond";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
@@ -22,8 +24,33 @@ const AddGig = () => {
   const [cover, setCover] = useState("");
   const [files, setFiles] = useState([]);
   const [addGig, result] = useAddGigMutation();
-
   const navigate = useNavigate();
+
+  //Create Select
+  const components = {
+    DropdownIndicator: null,
+  };
+
+  const createOption = (label) => ({
+    label,
+    value: label,
+  });
+
+  const [inputValue, setInputValue] = useState("");
+  const [value, setValue] = useState([]);
+
+  const handleKeyDown = (event) => {
+    if (!inputValue) return;
+    switch (event.key) {
+      case "Enter":
+      case "Tab":
+        setValue((prev) => [...prev, createOption(inputValue)]);
+        setInputValue("");
+        event.preventDefault();
+    }
+  };
+
+  //////////////////////////////////////////////////////////
 
   const schema = yup.object().shape({
     title: yup.string().required("Title is required"),
@@ -76,7 +103,7 @@ const AddGig = () => {
                 setCover(file.getFileEncodeDataURL());
               }}
             />
-            <label htmlFor="">Description Image</label>
+            <label htmlFor="">Gig Description</label>
             <textarea
               name=""
               id=""
@@ -84,7 +111,6 @@ const AddGig = () => {
               rows="10"
               {...register("desc")}
             ></textarea>
-            <button>Create</button>
           </div>
           <div className="right">
             <label htmlFor="">Service Title</label>
@@ -96,12 +122,20 @@ const AddGig = () => {
             <label htmlFor="">Revision Number</label>
             <input type="number" />
             <label htmlFor="">Add Features</label>
-            <input type="text" />
-            <input type="text" />
-            <input type="text" />
-            <input type="text" />
-            <label htmlFor="">Price</label>
+            <CreatableSelect
+              components={components}
+              inputValue={inputValue}
+              isClearable
+              isMulti
+              menuIsOpen={false}
+              onChange={(newValue) => setValue(newValue)}
+              onInputChange={(newValue) => setInputValue(newValue)}
+              onKeyDown={handleKeyDown}
+              placeholder="Type something and press enter..."
+              value={value}
+            />
             <input type="number" {...register("price")} />
+            <button>Create</button>
           </div>
         </form>
       </div>
