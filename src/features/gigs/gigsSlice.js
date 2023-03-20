@@ -45,6 +45,13 @@ export const gigsApiSlice = apiSlice.injectEndpoints({
         { type: "Gig", id: "USER_GIGS_LIST" },
       ],
     }),
+    deleteGig: builder.mutation({
+      query: (gigId) => ({
+        url: `/gigs/${gigId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [{ type: "Gig", id: "USER_GIGS_LIST" }],
+    }),
   }),
 });
 
@@ -53,4 +60,5 @@ export const {
   useGetGigByIdQuery,
   useAddGigMutation,
   useGetUserGigsQuery,
+  useDeleteGigMutation,
 } = gigsApiSlice;
