@@ -1,10 +1,20 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import Slide from "../slide/Slide";
+import { useGetCategoriesQuery } from "../../features/categories/categoriesSlice";
 import CategoryCard from "../categoryCard/CategoryCard";
-import { categories } from "../../mockData";
 import "./CategorySlider.scss";
 
 const CategorySlider = () => {
+  const { data: categories, isLoading, isError } = useGetCategoriesQuery();
+
+  if (isLoading) {
+    return <h2>Loaing...</h2>;
+  }
+
+  if (isError) {
+    return null;
+  }
+
   return (
     <div>
       <Slide>

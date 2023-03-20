@@ -11,10 +11,13 @@
   }
 
   .title {
+    color: white;
     font-weight: 500;
-    font-size: 15px;
+    font-size: var(--fs-500);
+    text-transform: uppercase;
     position: absolute;
     left: 15px;
     top: 40px;
+    -webkit-text-stroke: 0.25px black;
   }
 }

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useAddGigMutation } from "../../features/gigs/gigsSlice";
+import { useGetCategoriesQuery } from "../../features/categories/categoriesSlice";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, useController } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Select from "react-select";
@@ -25,6 +26,13 @@ const AddGig = () => {
   const [files, setFiles] = useState([]);
   const [addGig, result] = useAddGigMutation();
   const navigate = useNavigate();
+
+  const { data: categories, isLoading, isError } = useGetCategoriesQuery();
+
+  const options = categories?.map((cat) => ({
+    value: cat.id,
+    label: cat.name.toUpperCase(),
+  }));
 
   //Create Select
   const components = {
@@ -52,10 +60,11 @@ const AddGig = () => {
 
   //////////////////////////////////////////////////////////
 
+  //Form validation
   const schema = yup.object().shape({
     title: yup.string().required("Title is required"),
     desc: yup.string().required("desc is required"),
-    category: yup.string().required("Category is required"),
+    categoryId: yup.number().required("Please select category"),
     price: yup.number().required("price is required"),
   });
 
@@ -63,19 +72,27 @@ const AddGig = () => {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
+  const {
+    field: { value: catValue, onChange: catOnChange, ...restCatField },
+  } = useController({ name: "categoryId", control });
+
   const onSubmit = async (data) => {
     try {
-      await addGig({ ...data, cover }).unwrap();
+      console.log(data);
+      await addGig({ ...data, cover, features: value }).unwrap();
       navigate("/gigs");
     } catch (error) {
       console.log(error);
     }
   };
+
+  ////////////////////////////////////////////////////////
 
   return (
     <div className="add">
@@ -86,12 +103,17 @@ const AddGig = () => {
             <label htmlFor="">Title</label>
             <input type="text" {...register("title")} />
             <label htmlFor="">Category</label>
-            <select name="categories" id="cats" {...register("category")}>
-              <option value="design">Design</option>
-              <option value="web">Web Develpment</option>
-              <option value="animation">Animation</option>
-              <option value="music">Music</option>
-            </select>
+            <Select
+              className="select-input"
+              placeholder="Select Category"
+              isClearable
+              options={options}
+              value={
+                catValue ? options.find((c) => c.value === catValue) : catValue
+              }
+              onChange={(option) => catOnChange(option ? option.value : option)}
+              {...restCatField}
+            />
             <label htmlFor="">Cover Image</label>
             <FilePond
               files={files}
@@ -134,6 +156,7 @@ const AddGig = () => {
               placeholder="Type something and press enter..."
               value={value}
             />
+            <label htmlFor="">Price</label>
             <input type="number" {...register("price")} />
             <button>Create</button>
           </div>
