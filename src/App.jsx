@@ -19,6 +19,7 @@ import {
   Register,
   Success,
   ProfilePage,
+  LoadingPage,
 } from "./pages";
 
 const App = () => {
@@ -32,7 +33,7 @@ const App = () => {
 
   const Layout = () => {
     if (isLoading) {
-      return <h1>Loading...</h1>;
+      return <LoadingPage />;
     }
 
     return (
