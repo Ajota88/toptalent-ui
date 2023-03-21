@@ -2,15 +2,19 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
+import { updateSearchFilter } from "../../features/filters/filtersSlice";
 import "./Hero.scss";
 import heroImg from "../../assets/hero-img.png";
 
 const Hero = () => {
   const [input, setInput] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleSubmit = () => {
-    navigate(`/gigs?search=${input}`);
+  const handleSearch = () => {
+    dispatch(updateSearchFilter(input));
+    navigate("/gigs");
   };
 
   return (
@@ -29,7 +33,7 @@ const Hero = () => {
                 onChange={(e) => setInput(e.target.value)}
               />
             </div>
-            <button onClick={handleSubmit}>Search</button>
+            <button onClick={handleSearch}>Search</button>
           </div>
           <div className="popular">
             <span>Popular</span>

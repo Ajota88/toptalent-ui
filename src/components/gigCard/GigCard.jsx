@@ -30,10 +30,6 @@ const GigCard = ({ item }) => {
         ) : (
           <AdvancedImage cldImg={myCover} />
         )}
-        {/*  <img
-          src="https://res.cloudinary.com/dk3psx2kr/image/upload/v1/avatars_demo/ayw6jmovom3bqiqsuxcg"
-          alt=""
-        /> */}
         <div className="info">
           <div className="user">
             {!item?.img ? (
@@ -43,7 +39,7 @@ const GigCard = ({ item }) => {
             )}
             <span>{item.username}</span>
           </div>
-          <p>{item.desc}</p>
+          <p>{item.title}</p>
           <div className="star">
             <FontAwesomeIcon icon={faStar} />
             <span>

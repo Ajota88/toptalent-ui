@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updatePriceFilter } from "../../features/filters/filtersSlice";
+import { useGetCategoriesQuery } from "../../features/categories/categoriesSlice";
+import {
+  updatePriceFilter,
+  updateCategoryFilter,
+  clearFilters,
+} from "../../features/filters/filtersSlice";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLocation } from "react-router-dom";
 import { useGetGigsQuery } from "../../features/gigs/gigsSlice";
 import GigCard from "../../components/gigCard/GigCard";
+import Select from "react-select";
 //import { gigs } from "../../mockData";
 import "./Gigs.scss";
 
@@ -15,10 +21,20 @@ const Gigs = () => {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState("");
   const filters = useSelector((state) => state.filters);
+  const [selectdOption, setSelectdOption] = useState("");
 
   const dispatch = useDispatch();
 
   const { search } = useLocation();
+
+  const { data: categories } = useGetCategoriesQuery();
+
+  const options = categories?.map((cat) => ({
+    value: cat.id,
+    label: cat.name.toUpperCase(),
+  }));
+
+  options?.unshift({ value: "", label: "ALL" });
 
   const applyPriceFilter = () => {
     dispatch(updatePriceFilter({ minPrice, maxPrice }));
@@ -33,11 +49,25 @@ const Gigs = () => {
   } = useGetGigsQuery({
     minPrice: filters?.minPrice,
     maxPrice: filters?.maxPrice,
+    search: filters?.search,
+    cat: filters?.cat,
   });
 
   const reSort = (type) => {
     setSort(type);
     setOpen(false);
+  };
+
+  const handleSelected = (selected) => {
+    setSelectdOption(selected.value);
+  };
+
+  useEffect(() => {
+    dispatch(updateCategoryFilter(selectdOption));
+  }, [selectdOption]);
+
+  const handleClearFilters = () => {
+    dispatch(clearFilters());
   };
 
   return (
@@ -50,20 +80,28 @@ const Gigs = () => {
         </p>
         <div className="menu">
           <div className="left">
-            <span>Budget</span>
-            <input
-              type="number"
-              value={minPrice}
-              onChange={(e) => setMinPrice(e.target.value)}
-              placeholder="min price"
+            <button onClick={handleClearFilters}>Clear Filters</button>
+            <Select
+              options={options}
+              defaultValue={options?.[0]}
+              onChange={handleSelected}
             />
-            <input
-              type="number"
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(e.target.value)}
-              placeholder="max price"
-            />
-            <button onClick={applyPriceFilter}>Apply</button>
+            <div className="price-filter">
+              <span>Budget</span>
+              <input
+                type="number"
+                value={minPrice}
+                onChange={(e) => setMinPrice(e.target.value)}
+                placeholder="min price"
+              />
+              <input
+                type="number"
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(e.target.value)}
+                placeholder="max price"
+              />
+              <button onClick={applyPriceFilter}>Apply</button>
+            </div>
           </div>
           <div className="right">
             <span className="sort-by">Sort By</span>

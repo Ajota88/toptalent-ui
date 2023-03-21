@@ -15,16 +15,27 @@ const filtersSlice = createSlice({
       const { minPrice, maxPrice } = action.payload;
       (state.minPrice = minPrice), (state.maxPrice = maxPrice);
     },
+    updateSearchFilter: (state, action) => {
+      state.search = action.payload;
+    },
+    updateCategoryFilter: (state, action) => {
+      state.cat = action.payload;
+    },
     clearFilters: (state, action) => {
-      state = {
+      return (state = {
         search: "",
-        cat: null,
+        cat: "",
         minPrice: 0,
-        maxPrice: null,
-      };
+        maxPrice: "",
+      });
     },
   },
 });
 
-export const { updatePriceFilter, clearFilters } = filtersSlice.actions;
+export const {
+  updatePriceFilter,
+  clearFilters,
+  updateSearchFilter,
+  updateCategoryFilter,
+} = filtersSlice.actions;
 export default filtersSlice.reducer;
