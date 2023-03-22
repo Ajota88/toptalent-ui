@@ -38,7 +38,7 @@ function Register() {
       await registerUser(data).unwrap();
       navigate("/login");
     } catch (err) {
-      setServerError(err.data);
+      setServerError(err.data.message);
     }
   };
 
