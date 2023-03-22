@@ -7,13 +7,13 @@
   }
 
   h1 {
-    color: gray;
+    color: var(--clr-neutral-400);
     font-weight: 300;
     margin-bottom: 30px;
   }
 
   label {
-    color: gray;
+    color: var(--clr-neutral-400);
     font-size: 18px;
   }
 
@@ -31,10 +31,11 @@
   button {
     border: none;
     padding: 1rem;
-    background-color: #1dbf73;
+    background-color: var(--clr-accent-300);
     cursor: pointer;
     font-weight: 500;
     font-size: 18px;
+    color: white;
   }
 
   .sections {

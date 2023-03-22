@@ -73,7 +73,6 @@ const Gigs = () => {
   return (
     <div className="gigs">
       <div className="container">
-        <span className="breadcrumbs">Fiverr {">"} Graphics & Designs</span>
         <h2>AI Artists</h2>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, est?
@@ -85,6 +84,7 @@ const Gigs = () => {
               options={options}
               defaultValue={options?.[0]}
               onChange={handleSelected}
+              value={selectdOption?.label}
             />
             <div className="price-filter">
               <span>Budget</span>

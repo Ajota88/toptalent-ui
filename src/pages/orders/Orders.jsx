@@ -6,7 +6,7 @@ import "./Orders.scss";
 
 const Orders = () => {
   const { data: orders, isLoading, isError } = useGetUserOrdersQuery();
-  console.log(orders);
+
   return (
     <div className="orders">
       {isLoading ? (

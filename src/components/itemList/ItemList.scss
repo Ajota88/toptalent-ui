@@ -17,6 +17,6 @@ tbody {
   }
 
   &:nth-child(even) {
-    background-color: #1dbf730f;
+    background-color: var(--clr-neutral-300);
   }
 }

@@ -25,9 +25,11 @@ const Success = () => {
   }, []);
 
   return (
-    <div>
-      Payment successful. You are being redirected to the orders page. Please do
-      not close the page
+    <div className="success-page">
+      <h2>
+        Payment successful. You are being redirected to the orders page. Please
+        do not close the page
+      </h2>
     </div>
   );
 };

@@ -84,7 +84,6 @@ const AddGig = () => {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data);
       await addGig({ ...data, cover, features: value }).unwrap();
       navigate("/gigs");
     } catch (error) {
