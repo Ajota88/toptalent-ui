@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLogoutMutation } from "../../features/auth/authSlice";
+import { updateSearchFilter } from "../../features/filters/filtersSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { AdvancedImage } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { thumbnail } from "@cloudinary/url-gen/actions/resize";
@@ -31,6 +32,11 @@ const MobileNavbar = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const user = useSelector((state) => state.user);
   const [logout, result] = useLogoutMutation();
+  const [input, setInput] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { search } = useSelector((state) => state.filters);
+  const { pathname } = useLocation();
 
   const cld = new Cloudinary({
     cloud: {
@@ -57,6 +63,15 @@ const MobileNavbar = () => {
     closeModal();
   };
 
+  const handleSearch = () => {
+    dispatch(updateSearchFilter(input));
+    navigate("/gigs");
+  };
+
+  useEffect(() => {
+    setInput(search);
+  }, [search]);
+
   return (
     <nav className="mobile-navbar">
       <div className="container">
@@ -68,6 +83,7 @@ const MobileNavbar = () => {
             <h1>TopTotal</h1>
           </Link>
         </div>
+
         {!user ? (
           <button>Join</button>
         ) : (
@@ -81,6 +97,21 @@ const MobileNavbar = () => {
           </div>
         )}
       </div>
+      {pathname !== "/" && (
+        <div className="search">
+          <div className="search-input">
+            <input
+              type="text"
+              placeholder="Search..."
+              onChange={(e) => setInput(e.target.value)}
+              value={input}
+            />
+          </div>
+          <button onClick={handleSearch}>
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </button>
+        </div>
+      )}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../../features/auth/authSlice";
+import { updateSearchFilter } from "../../features/filters/filtersSlice";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AdvancedImage } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
@@ -8,12 +9,17 @@ import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import { focusOn } from "@cloudinary/url-gen/qualifiers/gravity";
 import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
 import defaultAvatar from "../../assets/avatar-default.jpg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.scss";
 
 const Navbar = () => {
   const [active, setActive] = useState(false);
   const user = useSelector((state) => state.user);
+  const { search } = useSelector((state) => state.filters);
   const [logout, result] = useLogoutMutation();
+  const [input, setInput] = useState("");
+  const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
 
@@ -25,6 +31,15 @@ const Navbar = () => {
     logout();
     navigate("/");
   };
+
+  const handleSearch = () => {
+    dispatch(updateSearchFilter(input));
+    navigate("/gigs");
+  };
+
+  useEffect(() => {
+    setInput(search);
+  }, [search]);
 
   //mock user
   /* const user = {
@@ -72,6 +87,21 @@ const Navbar = () => {
             <span className="text">TopTalent</span>
           </Link>
         </div>
+        {(active || pathname !== "/") && (
+          <div className="search">
+            <div className="search-input">
+              <input
+                type="text"
+                placeholder="Search..."
+                onChange={(e) => setInput(e.target.value)}
+                value={input}
+              />
+            </div>
+            <button onClick={handleSearch}>
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </button>
+          </div>
+        )}
         <div className="links">
           <Link to="/gigs">
             <span>Explore</span>
