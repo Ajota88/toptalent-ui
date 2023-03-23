@@ -1,3 +1,4 @@
+import { useState } from "react";
 import coverPlaceholder from "../../assets/No_Image_Available.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage, faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
@@ -5,12 +6,23 @@ import { Link } from "react-router-dom";
 import { AdvancedImage } from "@cloudinary/react";
 import { Cloudinary, CloudConfig, CloudinaryImage } from "@cloudinary/url-gen";
 import { useDeleteGigMutation } from "../../features/gigs/gigsSlice";
+import Modal from "react-modal";
 import "./ItemList.scss";
 
 const ItemList = ({ item, listof }) => {
   let cloudConfig = new CloudConfig({ cloudName: "dk3psx2kr" });
 
   const [deleteGig, result] = useDeleteGigMutation();
+
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   let orderImg;
   if (listof === "user gigs") {
@@ -37,10 +49,7 @@ const ItemList = ({ item, listof }) => {
         <td>
           {listof === "user gigs" ? (
             <span>
-              <FontAwesomeIcon
-                onClick={() => deleteGig(item.id)}
-                icon={faTrash}
-              />
+              <FontAwesomeIcon onClick={openModal} icon={faTrash} />
               <FontAwesomeIcon icon={faEdit} />
             </span>
           ) : (
@@ -48,6 +57,22 @@ const ItemList = ({ item, listof }) => {
           )}
         </td>
       </tr>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="mobile menu"
+        closeTimeoutMS={200}
+        className="Delete"
+        overlayClassName="DeleteOverlay"
+      >
+        <h2>Are you sure you want to delete your Gig?</h2>
+        <div className="buttons-container">
+          <button onClick={closeModal}>Cancel</button>
+          <button onClick={() => deleteGig(item.id)} className="delete-btn">
+            Delete
+          </button>
+        </div>
+      </Modal>
     </tbody>
   );
 };

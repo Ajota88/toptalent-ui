@@ -5,6 +5,11 @@
   justify-content: center;
   padding: 1rem;
 
+  .filepond--root[data-style-panel-layout~="circle"] {
+    height: 200px;
+    width: 200px;
+  }
+
   form {
     width: min(30rem, 90vw);
     padding: 1rem 0px;

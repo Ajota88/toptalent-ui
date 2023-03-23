@@ -9,6 +9,9 @@ import { FilePond, registerPlugin } from "react-filepond";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import FilePondPluginFileEncode from "filepond-plugin-file-encode";
+import FilePondPluginImageCrop from "filepond-plugin-image-crop";
+import FilePondPluginImageResize from "filepond-plugin-image-resize";
+import FilePondPluginImageTransform from "filepond-plugin-image-transform";
 import "filepond/dist/filepond.min.css";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import "./ProfilePage.scss";
@@ -16,7 +19,10 @@ import "./ProfilePage.scss";
 registerPlugin(
   FilePondPluginImageExifOrientation,
   FilePondPluginImagePreview,
-  FilePondPluginFileEncode
+  FilePondPluginFileEncode,
+  FilePondPluginImageCrop,
+  FilePondPluginImageResize,
+  FilePondPluginImageTransform
 );
 
 function Register() {
@@ -68,10 +74,18 @@ function Register() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1>Edit Your Profile</h1>
         <label htmlFor="">Profile Picture</label>
+
         <FilePond
           files={files}
           onupdatefiles={setFiles}
           allowFileEncode={true}
+          allowImagePreview={true}
+          stylePanelLayout="compact circle"
+          imageCropAspectRatio="1:1"
+          allowImageCrop={true}
+          allowImageResize={true}
+          allowImageTransform={true}
+          imagePreviewHeight={170}
           name="avatar"
           labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
           onpreparefile={(file) => {
