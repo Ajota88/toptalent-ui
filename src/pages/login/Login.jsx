@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLoginMutation } from "../../features/auth/authSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -55,6 +55,9 @@ function Login() {
           <p className="form-error">{errors.password.message}</p>
         )}
         <button type="submit">Login</button>
+        <p className="link">
+          Need an account <Link to="/register">Sign up</Link>
+        </p>
         {error && error.message}
       </form>
     </div>

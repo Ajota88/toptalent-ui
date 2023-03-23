@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRegisterUserMutation } from "../../features/auth/authSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -89,6 +89,9 @@ function Register() {
         </div>
 
         <button type="submit">Register</button>
+        <p className="link">
+          Already have an account <Link to="/login">Sign in</Link>
+        </p>
         <p>{serverError}</p>
       </form>
     </div>

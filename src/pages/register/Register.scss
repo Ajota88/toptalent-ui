@@ -1,11 +1,21 @@
 .register {
   display: flex;
-  align-items: center;
   justify-content: center;
+  padding: 1rem;
+  align-items: center;
+
+  .link {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    text-align: center;
+    a {
+      color: var(--clr-neutral-400);
+      text-decoration: underline;
+    }
+  }
 
   form {
     width: min(30rem, 90vw);
-    padding-block: 5rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;

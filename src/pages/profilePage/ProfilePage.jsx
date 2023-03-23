@@ -64,7 +64,7 @@ function Register() {
   };
 
   return (
-    <div className="register">
+    <div className="profile">
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1>Edit Your Profile</h1>
         <label htmlFor="">Profile Picture</label>

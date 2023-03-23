@@ -85,7 +85,9 @@ const MobileNavbar = () => {
         </div>
 
         {!user ? (
-          <button>Join</button>
+          <Link to="/register">
+            <button>Join</button>
+          </Link>
         ) : (
           <div className="user-info">
             {!user?.img ? (

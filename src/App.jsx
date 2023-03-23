@@ -6,6 +6,8 @@ import { store } from "./app/store";
 import Navbar from "./components/navbar/Navbar";
 import MobileNavbar from "./components/mobileNavbar/MobileNavbar";
 import Footer from "./components/footer/Footer";
+import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import SellerRoutes from "./components/sellerRoutes/SellerRoutes";
 import {
   AddGig,
   ErrorPage,
@@ -65,15 +67,28 @@ const App = () => {
         },
         {
           path: "/orders",
-          element: <Orders />,
+          element: (
+            <ProtectedRoute>
+              <Orders />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "/mygigs",
-          element: <MyGigs />,
+          element: (
+            <SellerRoutes>
+              <MyGigs />
+            </SellerRoutes>
+          ),
         },
         {
           path: "/add",
-          element: <AddGig />,
+          element: (
+            <SellerRoutes>
+              {" "}
+              <AddGig />
+            </SellerRoutes>
+          ),
         },
 
         {
@@ -86,15 +101,27 @@ const App = () => {
         },
         {
           path: "/payment/:id",
-          element: <Payment />,
+          element: (
+            <ProtectedRoute>
+              <Payment />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "/success",
-          element: <Success />,
+          element: (
+            <ProtectedRoute>
+              <Success />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "/myprofile",
-          element: <ProfilePage />,
+          element: (
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          ),
         },
       ],
     },
