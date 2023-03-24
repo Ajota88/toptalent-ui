@@ -5,6 +5,7 @@ import {
   updatePriceFilter,
   updateCategoryFilter,
   clearFilters,
+  updateSortBy,
 } from "../../features/filters/filtersSlice";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -51,6 +52,7 @@ const Gigs = () => {
     maxPrice: filters?.maxPrice,
     search: filters?.search,
     cat: filters?.cat,
+    sort: filters?.sort,
   });
 
   const reSort = (type) => {
@@ -65,6 +67,10 @@ const Gigs = () => {
   useEffect(() => {
     dispatch(updateCategoryFilter(selectdOption));
   }, [selectdOption]);
+
+  useEffect(() => {
+    dispatch(updateSortBy(sort));
+  }, [sort]);
 
   const handleClearFilters = () => {
     dispatch(clearFilters());
@@ -115,7 +121,7 @@ const Gigs = () => {
             {open && (
               <div className="right-menu">
                 {sort === "sales" ? (
-                  <span onClick={() => reSort("createdAt")}>Newest</span>
+                  <span onClick={() => reSort("created_at")}>Newest</span>
                 ) : (
                   <span onClick={() => reSort("sales")}>Best Selling</span>
                 )}

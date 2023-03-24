@@ -47,7 +47,9 @@ const Gig = () => {
       ) : (
         <div className="container">
           <div className="left">
-            <span className="breadcrumbs">Fiverr {">"} Graphics & Designs</span>
+            <span className="breadcrumbs">
+              Toptalent {">"} <Link to="/gigs">Back to Gigs</Link>{" "}
+            </span>
             <h1>{gig.title}</h1>
             <div className="user-main">
               {!gig?.img ? (
@@ -132,7 +134,7 @@ const Gig = () => {
           <div className="right">
             <div className="price">
               <h3>1 AI generated image</h3>
-              <h2>{gig.price}</h2>
+              <h2>${gig.price}</h2>
             </div>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -149,18 +151,12 @@ const Gig = () => {
               </div>
             </div>
             <div className="features">
-              <div className="item">
-                <FontAwesomeIcon icon={faCheck} />
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-              <div className="item">
-                <FontAwesomeIcon icon={faCheck} />
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-              <div className="item">
-                <FontAwesomeIcon icon={faCheck} />
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
+              {gig?.features.map((f) => (
+                <div className="item">
+                  <FontAwesomeIcon icon={faCheck} />
+                  <p>{f.label}</p>
+                </div>
+              ))}
             </div>
             <Link to={`/payment/${id}`}>
               <button>Continue</button>

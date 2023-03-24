@@ -3,7 +3,7 @@ import { apiSlice } from "../api/apiSlice";
 export const gigsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getGigs: builder.query({
-      query: ({ minPrice, maxPrice, search, cat }) => ({
+      query: ({ minPrice, maxPrice, search, cat, sort }) => ({
         url: "/gigs",
         method: "GET",
         params: {
@@ -11,6 +11,7 @@ export const gigsApiSlice = apiSlice.injectEndpoints({
           maxPrice,
           search,
           cat,
+          sort,
         },
       }),
       providesTags: (result, error, arg) => {

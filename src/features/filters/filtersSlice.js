@@ -5,6 +5,7 @@ const initialState = {
   cat: "",
   minPrice: 0,
   maxPrice: "",
+  sort: "sales",
 };
 
 const filtersSlice = createSlice({
@@ -20,6 +21,9 @@ const filtersSlice = createSlice({
     },
     updateCategoryFilter: (state, action) => {
       state.cat = action.payload;
+    },
+    updateSortBy: (state, action) => {
+      state.sort = action.payload;
     },
     clearFilters: (state, action) => {
       return (state = {
@@ -37,5 +41,6 @@ export const {
   clearFilters,
   updateSearchFilter,
   updateCategoryFilter,
+  updateSortBy,
 } = filtersSlice.actions;
 export default filtersSlice.reducer;
