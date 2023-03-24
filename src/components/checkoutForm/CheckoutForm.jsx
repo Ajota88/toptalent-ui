@@ -10,6 +10,7 @@ import "./CheckoutForm.scss";
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
+  const CLIENT_URL = import.meta.env.VITE_CLIENT_URL;
 
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState(null);
@@ -61,7 +62,7 @@ const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:5173/success",
+        return_url: CLIENT_URL,
       },
     });
 
